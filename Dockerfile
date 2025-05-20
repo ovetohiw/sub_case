@@ -1,0 +1,9 @@
+FROM openjdk:17
+EXPOSE 8080
+
+ENV JVM_OPTIONS=""
+ENV RUN_ARGS=""
+
+ARG JAR_FILE=./target/*.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT java $JVM_OPTIONS -jar $RUN_ARGS app.jar

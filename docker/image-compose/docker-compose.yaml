@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: subscribe_service
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminka
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - ../init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ../data:/var/lib/postgresql/data
+
+  app:
+    container_name: "test_container"
+    image: ${IMG_NAME}
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      db_host: db

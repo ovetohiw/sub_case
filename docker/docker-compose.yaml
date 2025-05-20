@@ -1,0 +1,14 @@
+services:
+  subscribe_service:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: subscribe_service
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminka
+
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./data:/var/lib/postgresql/data
